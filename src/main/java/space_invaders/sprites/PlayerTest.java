@@ -1,11 +1,12 @@
+package space_invaders.sprites;
+
 import main.Commons;
-import space_invaders.sprites.Player;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.Key;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PlayerTest {
     Player player;
@@ -16,7 +17,7 @@ public class PlayerTest {
 
     @org.junit.jupiter.api.AfterEach
     void TearDown(){
-        System.out.println(player.toString());
+
     }
 
     @org.junit.jupiter.api.Test
@@ -26,11 +27,19 @@ public class PlayerTest {
         assertEquals(halfScreen, player.getX());
     }
 
+    @org.junit.jupiter.api.Test
+    void cp_2_initPlayer(){
+        assertNotEquals(null,player.getImage());
+    }
+
     /**
      * Movimiento a la izquierda sin estar cerca del borde de la pantalla
      */
     @org.junit.jupiter.api.Test
     void cp_1_act(){
+        /**
+         * Se simula pulsación de tecla VK_LEFT
+         */
         KeyEvent keyEvent = new KeyEvent(
                 new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
                 KeyEvent.KEY_PRESSED,
@@ -39,10 +48,10 @@ public class PlayerTest {
                 KeyEvent.VK_LEFT,
                 KeyEvent.CHAR_UNDEFINED
         );
-        int oldX = player.getX();
+        player.setX(179);
         player.keyPressed(keyEvent);
         player.act();
-        assertEquals(oldX-2,player.getX());
+        assertEquals(177,player.getX());
     }
 
     /**
@@ -58,10 +67,10 @@ public class PlayerTest {
                 KeyEvent.VK_RIGHT,
                 KeyEvent.CHAR_UNDEFINED
         );
-        int oldX = player.getX();
+        player.setX(179);
         player.keyPressed(keyEvent);
         player.act();
-        assertEquals(oldX+2,player.getX());
+       assertEquals(181,player.getX());
     }
 
     /**
@@ -80,7 +89,7 @@ public class PlayerTest {
         player.setX(0);
         player.keyPressed(keyEvent);
         player.act();
-        assertEquals(0,player.getX());
+       assertEquals(0,player.getX());
     }
 
     /**
@@ -116,6 +125,7 @@ public class PlayerTest {
                 KeyEvent.CHAR_UNDEFINED
         );
         player.keyPressed(keyEvent);
+        assertTrue(player.dx < 0);
     }
 
     /**
@@ -131,7 +141,10 @@ public class PlayerTest {
                 KeyEvent.VK_RIGHT,
                 KeyEvent.CHAR_UNDEFINED
         );
+
         player.keyPressed(keyEvent);
+        assertTrue(player.dx > 0);
+
     }
 
     /**
@@ -147,7 +160,10 @@ public class PlayerTest {
                 KeyEvent.VK_L,
                 KeyEvent.CHAR_UNDEFINED
         );
+        int old_dx = player.dx;
         player.keyPressed(keyEvent);
+        assertEquals(old_dx, player.dx);
+
     }
 
     /**
@@ -155,6 +171,8 @@ public class PlayerTest {
      */
     @org.junit.jupiter.api.Test
     void cp_1_keyReleased(){
+        player.dx = -2;
+
         KeyEvent keyEvent = new KeyEvent(
                 new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
                 KeyEvent.KEY_RELEASED,
@@ -164,12 +182,14 @@ public class PlayerTest {
                 KeyEvent.CHAR_UNDEFINED
         );
         player.keyReleased(keyEvent);
+        assertEquals(0,player.dx);
     }
     /**
      * Ya no se pulsa la tecla VK_RIGHT entonces dx = 0
      */
     @org.junit.jupiter.api.Test
     void cp_2_keyReleased(){
+        player.dx = 2;
         KeyEvent keyEvent = new KeyEvent(
                 new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
                 KeyEvent.KEY_RELEASED,
@@ -179,5 +199,56 @@ public class PlayerTest {
                 KeyEvent.CHAR_UNDEFINED
         );
         player.keyReleased(keyEvent);
+        assertEquals(0,player.dx);
+    }
+
+    @org.junit.jupiter.api.Test
+    void cp_3_keyReleased(){
+        player.dx = 2;
+
+        KeyEvent keyEvent = new KeyEvent(
+                new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
+                KeyEvent.KEY_RELEASED,
+                System.currentTimeMillis(),
+                0, // Modificadores (sin shift, alt, etc.)
+                KeyEvent.VK_SPACE,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        int old_dx = player.dx;
+        player.keyReleased(keyEvent);
+        assertEquals(old_dx,player.dx);
+    }
+
+    @org.junit.jupiter.api.Test
+    void cp_4_keyReleased(){
+        player.dx = -2;
+
+        KeyEvent keyEvent = new KeyEvent(
+                new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
+                KeyEvent.KEY_RELEASED,
+                System.currentTimeMillis(),
+                0, // Modificadores (sin shift, alt, etc.)
+                KeyEvent.VK_SPACE,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        int old_dx = player.dx;
+        player.keyReleased(keyEvent);
+        assertEquals(old_dx,player.dx);
+    }
+
+    @org.junit.jupiter.api.Test
+    void cp_5_keyReleased(){
+        player.dx = 0;
+        KeyEvent keyEvent = new KeyEvent(
+                new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
+                KeyEvent.KEY_RELEASED,
+                System.currentTimeMillis(),
+                0, // Modificadores (sin shift, alt, etc.)
+                KeyEvent.VK_SPACE,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        int old_dx = player.dx;
+        player.keyReleased(keyEvent);
+        assertEquals(old_dx,player.dx);
     }
 }
