@@ -9,7 +9,7 @@ import java.awt.event.KeyEvent;
 
 
 public class PlayerTest {
-    Player player;
+    Player player = null;
     @org.junit.jupiter.api.BeforeEach
     void setUp(){
         player = new Player();
@@ -30,6 +30,11 @@ public class PlayerTest {
     @org.junit.jupiter.api.Test
     void cp_2_initPlayer(){
         assertNotEquals(null,player.getImage());
+    }
+
+    @org.junit.jupiter.api.Test
+    void cp_3_initPlayer(){
+        assertNotEquals(null,player);
     }
 
     /**
