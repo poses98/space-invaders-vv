@@ -117,6 +117,25 @@ public class PlayerTest {
     }
 
     /**
+     * Movimiento a la izquierda estando en el borde izquierdo
+     */
+    @org.junit.jupiter.api.Test
+    void cp_5_act(){
+        KeyEvent keyEvent = new KeyEvent(
+                new Component(){}, // Fuente del evento (no importa mucho para pruebas simples)
+                KeyEvent.KEY_PRESSED,
+                System.currentTimeMillis(),
+                0, // Modificadores (sin shift, alt, etc.)
+                KeyEvent.VK_SPACE,
+                KeyEvent.CHAR_UNDEFINED
+        );
+        player.setX(179);
+        player.keyPressed(keyEvent);
+        player.act();
+        assertEquals(179,player.getX());
+    }
+
+    /**
      * Se pulsa la tecla VK_LEFT entonces dx < 0
      */
     @org.junit.jupiter.api.Test
