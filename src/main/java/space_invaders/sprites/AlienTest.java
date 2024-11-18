@@ -3,10 +3,6 @@ package space_invaders.sprites;
 import main.Commons;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-
-
 public class AlienTest {
     Alien alien = null;
 
