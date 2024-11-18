@@ -48,7 +48,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (19/19)
+    (22/22)
   </span>
 </td>
 <td class="coverageStat">
@@ -64,7 +64,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (79/79)
+    (91/91)
   </span>
 </td>
 </tr>
@@ -322,7 +322,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (32/32)
+    (35/35)
   </span>
 </td>
 <td class="coverageStat">
@@ -338,7 +338,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (92/92)
+    (104/104)
   </span>
 </td>
 </tr>
@@ -352,6 +352,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package space_invaders.sprites;
 &nbsp;
 &nbsp;import main.Commons;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
 &nbsp;import static org.junit.jupiter.api.Assertions.*;
 &nbsp;
 &nbsp;import java.awt.*;
@@ -484,6 +486,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        player.keyPressed(keyEvent);</b>
 <b class="fc">&nbsp;        player.act();</b>
 <b class="fc">&nbsp;        assertEquals(179,player.getX());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp_6_act(){
+<b class="fc">&nbsp;        player.dx = 0;</b>
+<b class="fc">&nbsp;        player.x = 1;</b>
+<b class="fc">&nbsp;        player.act();</b>
+<b class="fc">&nbsp;        assertEquals(1,player.x);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp_7_act(){
+<b class="fc">&nbsp;        player.dx = 2;</b>
+<b class="fc">&nbsp;        player.x = 100;</b>
+<b class="fc">&nbsp;        player.act();</b>
+<b class="fc">&nbsp;        assertEquals(2,player.x);</b>
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void cp_8_act(){
+<b class="fc">&nbsp;        player.dx = 0;</b>
+<b class="fc">&nbsp;        player.x = 0;</b>
+<b class="fc">&nbsp;        player.act();</b>
+<b class="fc">&nbsp;        assertEquals(0,player.x);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -650,7 +675,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-11-18 19:43</div>
+    <div style="float:right;">generated on 2024-11-18 21:41</div>
 </div>
 </body>
 </html>

@@ -154,6 +154,30 @@ public class BoardTest {
     }
 
     @Test
+    void ci_1_update_bomb(){
+        List<Alien> aliens;
+        aliens = board.getAliens();
+        aliens.clear();
+        alien.die();
+        aliens.add(alien);
+        board.update_bomb();
+        assertEquals(alien.getX(),alien.getBomb().getX());
+        assertEquals(alien.getY(),alien.getBomb().getY());
+    }
+
+    @Test
+    void ci_2_update_bomb(){
+        List<Alien> aliens;
+        aliens = board.getAliens();
+        aliens.clear();
+        alien.getBomb().setDestroyed(true);
+        aliens.add(alien);
+        board.update_bomb();
+        assertEquals(alien.getX(),alien.getBomb().getX());
+        assertEquals(alien.getY(),alien.getBomb().getY());
+    }
+
+    @Test
     void cp_1_update_shot(){
         Shot shot  = board.getShot();
         shot.setX(alien.getX() + 9);
@@ -185,7 +209,37 @@ public class BoardTest {
         shot.setX(50);
         shot.setY(50);
         board.update_shots();
-        assertEquals(shot.getY(),46);
+        assertEquals(46,shot.getY());
+    }
+
+    /**
+     * Ci camino independiente de caja blanca
+     */
+    @Test
+    void ci_1_update_shot(){
+        Shot shot = board.getShot();
+        shot.setY(0);
+        board.update_shots();
+        assertFalse(shot.isVisible());
+    }
+    @Test
+    void ci_2_update_shot(){
+        Shot shot = board.getShot();
+        shot.setDying(true);
+        board.update_shots();
+        assertFalse(shot.isVisible());
+    }
+    @Test
+    void ci_3_update_shot(){
+        Shot shot = board.getShot();
+        shot.setX(50);
+        shot.setY(50);
+        board.getAliens().clear();
+        board.getAliens().add(new Alien(0,0));
+        board.getAliens().getFirst().setDying(true);
+        board.update_shots();
+        assertEquals(46,shot.getY());
+
     }
 }
 

@@ -1,6 +1,8 @@
 package space_invaders.sprites;
 
 import main.Commons;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AlienTest {
@@ -83,4 +85,26 @@ public class AlienTest {
         alien.act(direction);
         assertEquals(expected_x,alien.getX());
     }
+
+    @Test
+    void ci_1_initBomb(){
+        /**
+         * Init bomb se inicia al crear un alien con sus mismas coordenadas
+         */
+        Alien alien1 = new Alien(1,1);
+
+        assertEquals(1,alien1.getBomb().getX());
+        assertEquals(1,alien1.getBomb().getY());
+
+    }
+    @Test
+    void ci_2_initBomb(){
+        /**
+         * Init bomb se inicia al crear un alien con sus mismas coordenadas
+         */
+        Alien alien1 = new Alien(9999,1);
+        assertEquals(Commons.BOARD_WIDTH,alien1.getBomb().getX());
+        assertEquals(Commons.BOARD_HEIGHT,alien1.getBomb().getY());
+    }
+
 }

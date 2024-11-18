@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Board</td>
 <td class="coverageStat">
   <span class="percent">
-    31,4%
+    51.4%
   </span>
   <span class="absValue">
-    (11/35)
+    (18/35)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    51,1%
+    73.9%
   </span>
   <span class="absValue">
-    (45/88)
+    (65/88)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    54,1%
+    66.9%
   </span>
   <span class="absValue">
-    (85/157)
+    (105/157)
   </span>
 </td>
 </tr>
@@ -91,7 +91,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <td class="name">Board$TAdapter</td>
 <td class="coverageStat">
   <span class="percent">
-    33,3%
+    33.3%
   </span>
   <span class="absValue">
     (1/3)
@@ -118,26 +118,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    35%
+    52.5%
   </span>
   <span class="absValue">
-    (14/40)
+    (21/40)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    47,9%
+    69.1%
   </span>
   <span class="absValue">
-    (45/94)
+    (65/94)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    52,1%
+    63.9%
   </span>
   <span class="absValue">
-    (88/169)
+    (108/169)
   </span>
 </td>
 </tr>
@@ -188,7 +188,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private Timer timer;
 &nbsp;
 &nbsp;    public Player getPlayer() {
-<b class="nc">&nbsp;        return this.player;</b>
+<b class="fc">&nbsp;        return this.player;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public List&lt;Alien&gt; getAliens() {
@@ -196,7 +196,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public Shot getShot() {
-<b class="nc">&nbsp;        return this.shot;</b>
+<b class="fc">&nbsp;        return this.shot;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -391,10 +391,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    void update() {
 &nbsp;
-<b class="pc">&nbsp;        if (deaths == Commons.CHANCE) {</b>
-<b class="nc">&nbsp;            inGame = false;</b>
-<b class="nc">&nbsp;            timer.stop();</b>
-<b class="nc">&nbsp;            message = &quot;Game won!&quot;;</b>
+<b class="fc">&nbsp;        if (deaths == Commons.CHANCE) {</b>
+<b class="fc">&nbsp;            inGame = false;</b>
+<b class="fc">&nbsp;            timer.stop();</b>
+<b class="fc">&nbsp;            message = &quot;Game won!&quot;;</b>
 &nbsp;        }
 &nbsp;
 <b class="fc">&nbsp;        this.player.act();</b>
@@ -420,17 +420,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                int alienX = alien.getX();</b>
 <b class="fc">&nbsp;                int alienY = alien.getY();</b>
 &nbsp;
-<b class="pc">&nbsp;                if (alien.isVisible() &amp;&amp; this.shot.isVisible()) {</b>
+<b class="fc">&nbsp;                if (alien.isVisible() &amp;&amp; this.shot.isVisible()) {</b>
 <b class="pc">&nbsp;                    if (shotX &gt;= (alienX)</b>
 &nbsp;                            &amp;&amp; shotX &lt;= (alienX + Commons.ALIEN_WIDTH)
 &nbsp;                            &amp;&amp; shotY &gt;= (alienY)
 &nbsp;                            &amp;&amp; shotY &lt;= (alienY + Commons.ALIEN_HEIGHT)) {
 &nbsp;
-<b class="nc">&nbsp;                        var ii = new ImageIcon(explImg);</b>
-<b class="nc">&nbsp;                        alien.setImage(ii.getImage());</b>
-<b class="nc">&nbsp;                        alien.setDying(true);</b>
-<b class="nc">&nbsp;                        deaths--;</b>
-<b class="nc">&nbsp;                        this.shot.die();</b>
+<b class="fc">&nbsp;                        var ii = new ImageIcon(explImg);</b>
+<b class="fc">&nbsp;                        alien.setImage(ii.getImage());</b>
+<b class="fc">&nbsp;                        alien.setDying(true);</b>
+<b class="fc">&nbsp;                        deaths--;</b>
+<b class="fc">&nbsp;                        this.shot.die();</b>
 &nbsp;                    }
 &nbsp;                }
 &nbsp;            }
@@ -438,10 +438,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            int y = this.shot.getY();</b>
 <b class="fc">&nbsp;            y -= 4;</b>
 &nbsp;
-<b class="pc">&nbsp;            if (y &lt; 0) {</b>
+<b class="fc">&nbsp;            if (y &lt; 0) {</b>
 <b class="fc">&nbsp;                this.shot.die();</b>
 &nbsp;            } else {
-<b class="nc">&nbsp;                this.shot.setY(y);</b>
+<b class="fc">&nbsp;                this.shot.setY(y);</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
@@ -459,7 +459,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;            int x = alien.getX();</b>
 &nbsp;
-<b class="pc">&nbsp;            if (x &lt;= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT &amp;&amp; direction != -1) {</b>
+<b class="fc">&nbsp;            if (x &lt;= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT &amp;&amp; direction != -1) {</b>
 &nbsp;
 <b class="fc">&nbsp;                direction = 0;</b>
 &nbsp;
@@ -492,11 +492,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;            Alien alien = it.next();</b>
 &nbsp;
-<b class="pc">&nbsp;            if (alien.isVisible()) {</b>
+<b class="fc">&nbsp;            if (alien.isVisible()) {</b>
 &nbsp;
 <b class="fc">&nbsp;                int y = alien.getY();</b>
 &nbsp;
-<b class="pc">&nbsp;                if (y &gt; Commons.GROUND - Commons.ALIEN_HEIGHT) {</b>
+<b class="fc">&nbsp;                if (y &gt; Commons.GROUND - Commons.ALIEN_HEIGHT) {</b>
 <b class="fc">&nbsp;                    inGame = false;</b>
 <b class="fc">&nbsp;                    message = &quot;Invasion!&quot;;</b>
 &nbsp;                }
@@ -522,7 +522,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;            int shot = generator.nextInt(15);</b>
 <b class="fc">&nbsp;            Alien.Bomb bomb = alien.getBomb();</b>
 &nbsp;
-<b class="pc">&nbsp;            if (shot == Commons.CHANCE &amp;&amp; alien.isVisible() &amp;&amp; bomb.isDestroyed()) {</b>
+<b class="fc">&nbsp;            if (shot == Commons.CHANCE &amp;&amp; alien.isVisible() &amp;&amp; bomb.isDestroyed()) {</b>
 <b class="fc">&nbsp;                bomb.setDestroyed(false);</b>
 <b class="fc">&nbsp;                bomb.setX(alien.getX());</b>
 <b class="fc">&nbsp;                bomb.setY(alien.getY());</b>
@@ -535,16 +535,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="pc">&nbsp;            if (this.player.isVisible() &amp;&amp; !bomb.isDestroyed()) {</b>
 &nbsp;
-<b class="pc">&nbsp;                if (bombX &gt;= (playerX)</b>
+<b class="fc">&nbsp;                if (bombX &gt;= (playerX)</b>
 &nbsp;                        &amp;&amp; bombX &lt;= (playerX + Commons.PLAYER_WIDTH)
 &nbsp;                        &amp;&amp; bombY &gt;= (playerY)
 &nbsp;                        &amp;&amp; bombY &lt;= (playerY + Commons.PLAYER_HEIGHT)) {
 &nbsp;
-<b class="nc">&nbsp;                    var ii = new ImageIcon(explImg);</b>
-<b class="nc">&nbsp;                    this.player.setImage(ii.getImage());</b>
+<b class="fc">&nbsp;                    var ii = new ImageIcon(explImg);</b>
+<b class="fc">&nbsp;                    this.player.setImage(ii.getImage());</b>
 &nbsp;                    /** ERROR: El estado debe ser player.setDying(true); */
-<b class="nc">&nbsp;                    this.player.setDying(true);</b>
-<b class="nc">&nbsp;                    bomb.setDestroyed(true);</b>
+<b class="fc">&nbsp;                    this.player.setDying(true);</b>
+<b class="fc">&nbsp;                    bomb.setDestroyed(true);</b>
 &nbsp;                }
 &nbsp;            }
 &nbsp;
@@ -552,7 +552,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;                bomb.setY(bomb.getY() + 1);</b>
 &nbsp;
-<b class="pc">&nbsp;                if (bomb.getY() &gt;= Commons.GROUND - Commons.BOMB_HEIGHT) {</b>
+<b class="fc">&nbsp;                if (bomb.getY() &gt;= Commons.GROUND - Commons.BOMB_HEIGHT) {</b>
 &nbsp;
 <b class="fc">&nbsp;                    bomb.setDestroyed(false);</b>
 &nbsp;                }
@@ -630,7 +630,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setAliens(List&lt;Alien&gt; aliens) {
-<b class="nc">&nbsp;        this.aliens = aliens;</b>
+<b class="fc">&nbsp;        this.aliens = aliens;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setPlayer(Player player) {
@@ -642,15 +642,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public int getDirection() {
-<b class="nc">&nbsp;        return direction;</b>
+<b class="fc">&nbsp;        return direction;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setDirection(int direction) {
-<b class="nc">&nbsp;        this.direction = direction;</b>
+<b class="fc">&nbsp;        this.direction = direction;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public int getDeaths() {
-<b class="nc">&nbsp;        return deaths;</b>
+<b class="fc">&nbsp;        return deaths;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setDeaths(int deaths) {
@@ -674,7 +674,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public String getMessage() {
-<b class="nc">&nbsp;        return message;</b>
+<b class="fc">&nbsp;        return message;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setMessage(String message) {
@@ -712,7 +712,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-11-18 19:43</div>
+    <div style="float:right;">generated on 2024-11-18 21:41</div>
 </div>
 </body>
 </html>

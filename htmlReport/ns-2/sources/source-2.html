@@ -55,15 +55,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (9/9)
+    (11/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    95,7%
+    96.2%
   </span>
   <span class="absValue">
-    (44/46)
+    (50/52)
   </span>
 </td>
 </tr>
@@ -78,6 +78,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package space_invaders.sprites;
 &nbsp;
 &nbsp;import main.Commons;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;
 &nbsp;import static org.junit.jupiter.api.Assertions.*;
 &nbsp;
 <b class="fc">&nbsp;public class AlienTest {</b>
@@ -160,6 +162,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        alien.act(direction);</b>
 <b class="fc">&nbsp;        assertEquals(expected_x,alien.getX());</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void ci_1_initBomb(){
+&nbsp;        /**
+&nbsp;         * Init bomb se inicia al crear un alien con sus mismas coordenadas
+&nbsp;         */
+<b class="fc">&nbsp;        Alien alien1 = new Alien(1,1);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(1,alien1.getBomb().getX());</b>
+<b class="fc">&nbsp;        assertEquals(1,alien1.getBomb().getY());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;    @Test
+&nbsp;    void ci_2_initBomb(){
+&nbsp;        /**
+&nbsp;         * Init bomb se inicia al crear un alien con sus mismas coordenadas
+&nbsp;         */
+<b class="fc">&nbsp;        Alien alien1 = new Alien(9999,1);</b>
+<b class="fc">&nbsp;        assertEquals(Commons.BOARD_WIDTH,alien1.getBomb().getX());</b>
+<b class="fc">&nbsp;        assertEquals(Commons.BOARD_HEIGHT,alien1.getBomb().getY());</b>
+&nbsp;    }
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -184,7 +208,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-11-18 19:43</div>
+    <div style="float:right;">generated on 2024-11-18 21:41</div>
 </div>
 </body>
 </html>

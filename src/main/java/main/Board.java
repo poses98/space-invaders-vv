@@ -392,7 +392,6 @@ public class Board extends JPanel {
 
                     var ii = new ImageIcon(explImg);
                     this.player.setImage(ii.getImage());
-                    /** ERROR: El estado debe ser player.setDying(true); */
                     this.player.setDying(true);
                     bomb.setDestroyed(true);
                 }
