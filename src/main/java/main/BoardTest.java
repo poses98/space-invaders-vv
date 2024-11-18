@@ -38,6 +38,7 @@ public class BoardTest {
         }
         assertNotEquals(null,board.getPlayer());
         assertNotEquals(null, board.getShot());
+        assertTrue(board.isInGame());
     }
 
     @ParameterizedTest
@@ -91,13 +92,27 @@ public class BoardTest {
     }
 
     @Test
+    void cp1_update(){
+        board.setDeaths(0);
+        board.update();
+        assertEquals("Game won!", board.getMessage());
+        assertFalse(board.isInGame());
+    }
+
+
+    @Test
+    void cp2_update(){
+        board.setDeaths(10);
+        board.update();
+        assertTrue(board.isInGame());
+    }
+
+    @Test
     void cp1_update_bomb(){
         bomb.setY(Commons.GROUND - Commons.BOMB_HEIGHT + 1);
         board.update_bomb();
         assertTrue(bomb.isDestroyed(),"La bomba debería haberse destruido");
     }
-
-
 
     @Test
     void cp3_update_bomb(){
