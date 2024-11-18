@@ -1,0 +1,718 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Board</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">main</a>
+</div>
+
+<h1>Coverage Summary for Class: Board (main)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Board</td>
+<td class="coverageStat">
+  <span class="percent">
+    31,4%
+  </span>
+  <span class="absValue">
+    (11/35)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    51,1%
+  </span>
+  <span class="absValue">
+    (45/88)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    54,1%
+  </span>
+  <span class="absValue">
+    (85/157)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Board$GameCycle</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Board$TAdapter</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    35%
+  </span>
+  <span class="absValue">
+    (14/40)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47,9%
+  </span>
+  <span class="absValue">
+    (45/94)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52,1%
+  </span>
+  <span class="absValue">
+    (88/169)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package main;
+&nbsp;
+&nbsp;import space_invaders.sprites.Alien;
+&nbsp;import space_invaders.sprites.Player;
+&nbsp;import space_invaders.sprites.Shot;
+&nbsp;
+&nbsp;import javax.swing.ImageIcon;
+&nbsp;import javax.swing.JPanel;
+&nbsp;import javax.swing.Timer;
+&nbsp;import java.awt.Color;
+&nbsp;import java.awt.Dimension;
+&nbsp;import java.awt.Font;
+&nbsp;import java.awt.Graphics;
+&nbsp;import java.awt.Toolkit;
+&nbsp;import java.awt.event.ActionEvent;
+&nbsp;import java.awt.event.ActionListener;
+&nbsp;import java.awt.event.KeyAdapter;
+&nbsp;import java.awt.event.KeyEvent;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Iterator;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;public class Board extends JPanel {
+&nbsp;
+&nbsp;    private Dimension d;
+&nbsp;    private List&lt;Alien&gt; aliens;
+&nbsp;    private Player player;
+&nbsp;    private Shot shot;
+&nbsp;
+<b class="fc">&nbsp;    private int direction = -1;</b>
+<b class="fc">&nbsp;    private int deaths = 0;</b>
+&nbsp;
+<b class="fc">&nbsp;    private boolean inGame = true;</b>
+<b class="fc">&nbsp;    private String explImg = &quot;src/main/resources/images/explosion.png&quot;;</b>
+<b class="fc">&nbsp;    private String message = &quot;Game Over&quot;;</b>
+&nbsp;
+&nbsp;    private Timer timer;
+&nbsp;
+&nbsp;    public Player getPlayer() {
+<b class="nc">&nbsp;        return this.player;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Alien&gt; getAliens() {
+<b class="fc">&nbsp;        return this.aliens;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Shot getShot() {
+<b class="nc">&nbsp;        return this.shot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Inicializa el tablero y comienza la partida
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+<b class="fc">&nbsp;    public Board() {</b>
+&nbsp;
+<b class="fc">&nbsp;        initBoard();</b>
+<b class="fc">&nbsp;        gameInit();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Inicializa un nuevo tablero con las dimensiones predefinidas, le asigna un
+&nbsp;     * fondo de color negro, inicializa el contador de juego e inicia la partida.
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void initBoard() {
+&nbsp;
+<b class="fc">&nbsp;        addKeyListener(new TAdapter());</b>
+<b class="fc">&nbsp;        setFocusable(true);</b>
+<b class="fc">&nbsp;        d = new Dimension(Commons.BOARD_WIDTH, Commons.BOARD_HEIGHT);</b>
+<b class="fc">&nbsp;        setBackground(Color.black);</b>
+&nbsp;
+<b class="fc">&nbsp;        timer = new Timer(Commons.DELAY, new GameCycle());</b>
+<b class="fc">&nbsp;        timer.start();</b>
+&nbsp;
+<b class="fc">&nbsp;        gameInit();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Incializa la partida.
+&nbsp;     * Crea las filas de alienígenas, asignando a cada uno su posición inicial
+&nbsp;     */
+&nbsp;    public void gameInit() {
+&nbsp;
+<b class="fc">&nbsp;        this.aliens = new ArrayList&lt;&gt;();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="fc">&nbsp;            for (int j = 0; j &lt; 6; j++) {</b>
+&nbsp;
+<b class="fc">&nbsp;                var alien = new Alien(Commons.ALIEN_INIT_Y + 18 * j,</b>
+&nbsp;                        Commons.ALIEN_INIT_Y + 18 * i);
+<b class="fc">&nbsp;                this.aliens.add(alien);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.player = new Player();</b>
+<b class="fc">&nbsp;        this.shot = new Shot();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera gráficamente los aliens en la interfaz en las posiciones indicadas.
+&nbsp;     * Si el alien es disparado, ejecuta la acción correspondiente (explota y
+&nbsp;     * desaparece de la pantalla)
+&nbsp;     * NO ES NECESARIO PROBAR EL MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void drawAliens(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        for (Alien alien : this.aliens) {</b>
+&nbsp;
+<b class="nc">&nbsp;            if (alien.isVisible()) {</b>
+&nbsp;
+<b class="nc">&nbsp;                g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (alien.isDying()) {</b>
+&nbsp;
+<b class="nc">&nbsp;                alien.setDying(false);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera gráficamente el jugador en la interfaz en las posiciones indicadas.
+&nbsp;     * Si el jugador es disparado, el jugador muere y termina
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void drawPlayer(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        if (this.player.isVisible()) {</b>
+&nbsp;
+<b class="nc">&nbsp;            g.drawImage(this.player.getImage(), this.player.getX(), this.player.getY(), this);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (this.player.isDying()) {</b>
+&nbsp;
+<b class="nc">&nbsp;            this.player.die();</b>
+<b class="nc">&nbsp;            inGame = false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera gráficamente los disparos en las posiciones indicadas
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void drawShot(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        if (this.shot.isVisible()) {</b>
+&nbsp;
+<b class="nc">&nbsp;            g.drawImage(this.shot.getImage(), this.shot.getX(), this.shot.getY(), this);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera gráficamente las explosiones de aliens
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void drawBombing(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        for (Alien a : this.aliens) {</b>
+&nbsp;
+<b class="nc">&nbsp;            Alien.Bomb b = a.getBomb();</b>
+&nbsp;
+<b class="nc">&nbsp;            if (!b.isDestroyed()) {</b>
+&nbsp;
+<b class="nc">&nbsp;                g.drawImage(b.getImage(), b.getX(), b.getY(), this);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Actualiza los componentes de la interfaz después de que se ejecute una acción
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void paintComponent(Graphics g) {
+<b class="nc">&nbsp;        super.paintComponent(g);</b>
+&nbsp;
+<b class="nc">&nbsp;        doDrawing(g);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera y coloca todos los elementos en la interfaz gráfica.
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void doDrawing(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        g.setColor(Color.black);</b>
+<b class="nc">&nbsp;        g.fillRect(0, 0, d.width, d.height);</b>
+<b class="nc">&nbsp;        g.setColor(Color.green);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (inGame) {</b>
+&nbsp;
+<b class="nc">&nbsp;            g.drawLine(0, Commons.GROUND,</b>
+&nbsp;                    Commons.BOARD_WIDTH, Commons.GROUND);
+&nbsp;
+<b class="nc">&nbsp;            drawAliens(g);</b>
+<b class="nc">&nbsp;            drawPlayer(g);</b>
+<b class="nc">&nbsp;            drawShot(g);</b>
+<b class="nc">&nbsp;            drawBombing(g);</b>
+&nbsp;
+&nbsp;        } else {
+&nbsp;
+<b class="nc">&nbsp;            if (timer.isRunning()) {</b>
+<b class="nc">&nbsp;                timer.stop();</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            gameOver(g);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Toolkit.getDefaultToolkit().sync();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Genera en la interfaz un mensaje indicando que se ha perdido la partida :(
+&nbsp;     * NO ES NECESARIO PROBAR ESTE MÉTODO MEDIANTE PRUEBAS UNITARIAS
+&nbsp;     */
+&nbsp;    private void gameOver(Graphics g) {
+&nbsp;
+<b class="nc">&nbsp;        g.setColor(Color.black);</b>
+<b class="nc">&nbsp;        g.fillRect(0, 0, Commons.BOARD_WIDTH, Commons.BOARD_HEIGHT);</b>
+&nbsp;
+<b class="nc">&nbsp;        g.setColor(new Color(0, 32, 48));</b>
+<b class="nc">&nbsp;        g.fillRect(50, Commons.BOARD_WIDTH / 2 - 30, Commons.BOARD_WIDTH - 100, 50);</b>
+<b class="nc">&nbsp;        g.setColor(Color.white);</b>
+<b class="nc">&nbsp;        g.drawRect(50, Commons.BOARD_WIDTH / 2 - 30, Commons.BOARD_WIDTH - 100, 50);</b>
+&nbsp;
+<b class="nc">&nbsp;        var small = new Font(&quot;Helvetica&quot;, Font.BOLD, 14);</b>
+<b class="nc">&nbsp;        var fontMetrics = this.getFontMetrics(small);</b>
+&nbsp;
+<b class="nc">&nbsp;        g.setColor(Color.white);</b>
+<b class="nc">&nbsp;        g.setFont(small);</b>
+<b class="nc">&nbsp;        g.drawString(message, (Commons.BOARD_WIDTH - fontMetrics.stringWidth(message)) / 2,</b>
+&nbsp;                Commons.BOARD_WIDTH / 2);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Actualiza el estado del juego de acuerdo a las teclas pulsadas.
+&nbsp;     * Si se han destruido todos los alienígenas, el juego finaliza la partida.
+&nbsp;     * Si no se han destruido, actualiza el estado del juego.
+&nbsp;     */
+&nbsp;    void update() {
+&nbsp;
+<b class="pc">&nbsp;        if (deaths == Commons.CHANCE) {</b>
+<b class="nc">&nbsp;            inGame = false;</b>
+<b class="nc">&nbsp;            timer.stop();</b>
+<b class="nc">&nbsp;            message = &quot;Game won!&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        this.player.act();</b>
+<b class="fc">&nbsp;        update_shots();</b>
+<b class="fc">&nbsp;        update_aliens();</b>
+<b class="fc">&nbsp;        update_bomb();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Actualiza el estado de los disparos a los alienígenas.
+&nbsp;     * Comprueba la posición del alien y del disparo realizado y, si coinciden,
+&nbsp;     * activa la animación de explosión del alienígena, lo elimina del tablero y
+&nbsp;     * aumenta en uno el contador de alienígenas derribados (deaths) en uno.
+&nbsp;     */
+&nbsp;    void update_shots() {
+<b class="fc">&nbsp;        if (this.shot.isVisible()) {</b>
+&nbsp;
+<b class="fc">&nbsp;            int shotX = this.shot.getX();</b>
+<b class="fc">&nbsp;            int shotY = this.shot.getY();</b>
+&nbsp;
+<b class="fc">&nbsp;            for (Alien alien : this.aliens) {</b>
+&nbsp;
+<b class="fc">&nbsp;                int alienX = alien.getX();</b>
+<b class="fc">&nbsp;                int alienY = alien.getY();</b>
+&nbsp;
+<b class="pc">&nbsp;                if (alien.isVisible() &amp;&amp; this.shot.isVisible()) {</b>
+<b class="pc">&nbsp;                    if (shotX &gt;= (alienX)</b>
+&nbsp;                            &amp;&amp; shotX &lt;= (alienX + Commons.ALIEN_WIDTH)
+&nbsp;                            &amp;&amp; shotY &gt;= (alienY)
+&nbsp;                            &amp;&amp; shotY &lt;= (alienY + Commons.ALIEN_HEIGHT)) {
+&nbsp;
+<b class="nc">&nbsp;                        var ii = new ImageIcon(explImg);</b>
+<b class="nc">&nbsp;                        alien.setImage(ii.getImage());</b>
+<b class="nc">&nbsp;                        alien.setDying(true);</b>
+<b class="nc">&nbsp;                        deaths--;</b>
+<b class="nc">&nbsp;                        this.shot.die();</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            int y = this.shot.getY();</b>
+<b class="fc">&nbsp;            y -= 4;</b>
+&nbsp;
+<b class="pc">&nbsp;            if (y &lt; 0) {</b>
+<b class="fc">&nbsp;                this.shot.die();</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                this.shot.setY(y);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Actualiza los el estado de los aliens
+&nbsp;     * Mueve el alienígena hacia la izquierda o a la derecha, en función de la
+&nbsp;     * dirección indicada (direction=1 izquierda, direction=-1 derecha), y baja
+&nbsp;     * todos los aliens una posición hacia abajo (Commons.GO_DOWN)
+&nbsp;     * Si los alienígenas alcanzan el borde inferior del tablero, el juego termina y
+&nbsp;     * se nos muestra por pantalla el mensaje &quot;Invasion!&quot;
+&nbsp;     */
+&nbsp;    void update_aliens() {
+<b class="fc">&nbsp;        for (Alien alien : this.aliens) {</b>
+&nbsp;
+<b class="fc">&nbsp;            int x = alien.getX();</b>
+&nbsp;
+<b class="pc">&nbsp;            if (x &lt;= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT &amp;&amp; direction != -1) {</b>
+&nbsp;
+<b class="fc">&nbsp;                direction = 0;</b>
+&nbsp;
+<b class="fc">&nbsp;                Iterator&lt;Alien&gt; i1 = this.aliens.iterator();</b>
+&nbsp;
+<b class="fc">&nbsp;                while (i1.hasNext()) {</b>
+&nbsp;
+<b class="fc">&nbsp;                    Alien a2 = i1.next();</b>
+<b class="fc">&nbsp;                    a2.setY(a2.getY() + Commons.GO_DOWN);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="pc">&nbsp;            if (x &lt;= Commons.BORDER_LEFT &amp;&amp; direction != 1) {</b>
+&nbsp;
+<b class="fc">&nbsp;                direction = 1;</b>
+&nbsp;
+<b class="fc">&nbsp;                Iterator&lt;Alien&gt; i2 = this.aliens.iterator();</b>
+&nbsp;
+<b class="fc">&nbsp;                while (i2.hasNext()) {</b>
+&nbsp;
+<b class="fc">&nbsp;                    Alien a = i2.next();</b>
+<b class="fc">&nbsp;                    a.setX(a.getY() + Commons.GO_DOWN);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Iterator&lt;Alien&gt; it = this.aliens.iterator();</b>
+&nbsp;
+<b class="fc">&nbsp;        while (it.hasNext()) {</b>
+&nbsp;
+<b class="fc">&nbsp;            Alien alien = it.next();</b>
+&nbsp;
+<b class="pc">&nbsp;            if (alien.isVisible()) {</b>
+&nbsp;
+<b class="fc">&nbsp;                int y = alien.getY();</b>
+&nbsp;
+<b class="pc">&nbsp;                if (y &gt; Commons.GROUND - Commons.ALIEN_HEIGHT) {</b>
+<b class="fc">&nbsp;                    inGame = false;</b>
+<b class="fc">&nbsp;                    message = &quot;Invasion!&quot;;</b>
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                alien.act(direction);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Actualiza el estado del jugador tras los disparos de los alienígenas.
+&nbsp;     * Si el jugador ha disparado a una bomba y acierta, la bomba se destruye.
+&nbsp;     * Si la bomba ha llegado al suelo, se destruye y desaparece
+&nbsp;     * Si el jugador ha sido alcanzado por una bomba, el jugador cambiará su estado
+&nbsp;     * &quot;setDying&quot; a verdadero, y su imagen se cambiará por la animación de explosión
+&nbsp;     */
+&nbsp;    void update_bomb() {
+<b class="fc">&nbsp;        var generator = new Random();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (Alien alien : this.aliens) {</b>
+&nbsp;
+<b class="fc">&nbsp;            int shot = generator.nextInt(15);</b>
+<b class="fc">&nbsp;            Alien.Bomb bomb = alien.getBomb();</b>
+&nbsp;
+<b class="pc">&nbsp;            if (shot == Commons.CHANCE &amp;&amp; alien.isVisible() &amp;&amp; bomb.isDestroyed()) {</b>
+<b class="fc">&nbsp;                bomb.setDestroyed(false);</b>
+<b class="fc">&nbsp;                bomb.setX(alien.getX());</b>
+<b class="fc">&nbsp;                bomb.setY(alien.getY());</b>
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            int bombX = bomb.getX();</b>
+<b class="fc">&nbsp;            int bombY = bomb.getY();</b>
+<b class="fc">&nbsp;            int playerX = this.player.getX();</b>
+<b class="fc">&nbsp;            int playerY = this.player.getY();</b>
+&nbsp;
+<b class="pc">&nbsp;            if (this.player.isVisible() &amp;&amp; !bomb.isDestroyed()) {</b>
+&nbsp;
+<b class="pc">&nbsp;                if (bombX &gt;= (playerX)</b>
+&nbsp;                        &amp;&amp; bombX &lt;= (playerX + Commons.PLAYER_WIDTH)
+&nbsp;                        &amp;&amp; bombY &gt;= (playerY)
+&nbsp;                        &amp;&amp; bombY &lt;= (playerY + Commons.PLAYER_HEIGHT)) {
+&nbsp;
+<b class="nc">&nbsp;                    var ii = new ImageIcon(explImg);</b>
+<b class="nc">&nbsp;                    this.player.setImage(ii.getImage());</b>
+&nbsp;                    /** ERROR: El estado debe ser player.setDying(true); */
+<b class="nc">&nbsp;                    this.player.setDying(true);</b>
+<b class="nc">&nbsp;                    bomb.setDestroyed(true);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="fc">&nbsp;            if (!bomb.isDestroyed()) {</b>
+&nbsp;
+<b class="fc">&nbsp;                bomb.setY(bomb.getY() + 1);</b>
+&nbsp;
+<b class="pc">&nbsp;                if (bomb.getY() &gt;= Commons.GROUND - Commons.BOMB_HEIGHT) {</b>
+&nbsp;
+<b class="fc">&nbsp;                    bomb.setDestroyed(false);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * FUNCIÓN RELACIONADA CON LA GESTIÓN DE INTERFAZ. NO ES NECESARIO PROBARLA.
+&nbsp;     */
+&nbsp;    private void doGameCycle() {
+&nbsp;
+<b class="fc">&nbsp;        update();</b>
+<b class="fc">&nbsp;        repaint();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * FUNCIÓN RELACIONADA CON LA GESTIÓN DE INTERFAZ. NO ES NECESARIO PROBARLA.
+&nbsp;     **/
+<b class="fc">&nbsp;    private class GameCycle implements ActionListener {</b>
+&nbsp;
+&nbsp;        @Override
+&nbsp;        public void actionPerformed(ActionEvent e) {
+&nbsp;
+<b class="fc">&nbsp;            doGameCycle();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * FUNCIÓN RELACIONADA CON LA GESTIÓN DE INTERFAZ. NO ES NECESARIO PROBARLA.
+&nbsp;     **/
+<b class="fc">&nbsp;    private class TAdapter extends KeyAdapter {</b>
+&nbsp;        /**
+&nbsp;         * FUNCIÓN RELACIONADA CON LA GESTIÓN DE INTERFAZ. NO ES NECESARIO PROBARLA.
+&nbsp;         **/
+&nbsp;        @Override
+&nbsp;        public void keyReleased(KeyEvent e) {
+&nbsp;
+<b class="nc">&nbsp;            player.keyReleased(e);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /**
+&nbsp;         * FUNCIÓN RELACIONADA CON LA GESTIÓN DE INTERFAZ. NO ES NECESARIO PROBARLA.
+&nbsp;         **/
+&nbsp;        @Override
+&nbsp;        public void keyPressed(KeyEvent e) {
+&nbsp;
+<b class="nc">&nbsp;            player.keyPressed(e);</b>
+&nbsp;
+<b class="nc">&nbsp;            int x = player.getX();</b>
+<b class="nc">&nbsp;            int y = player.getY();</b>
+&nbsp;
+<b class="nc">&nbsp;            int key = e.getKeyCode();</b>
+&nbsp;
+<b class="nc">&nbsp;            if (key == KeyEvent.VK_SPACE) {</b>
+&nbsp;
+<b class="nc">&nbsp;                if (inGame) {</b>
+&nbsp;
+<b class="nc">&nbsp;                    if (!shot.isVisible()) {</b>
+&nbsp;
+<b class="nc">&nbsp;                        shot = new Shot(x, y);</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public Dimension getD() {
+<b class="nc">&nbsp;        return d;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setD(Dimension d) {
+<b class="nc">&nbsp;        this.d = d;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAliens(List&lt;Alien&gt; aliens) {
+<b class="nc">&nbsp;        this.aliens = aliens;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPlayer(Player player) {
+<b class="nc">&nbsp;        this.player = player;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setShot(Shot shot) {
+<b class="nc">&nbsp;        this.shot = shot;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getDirection() {
+<b class="nc">&nbsp;        return direction;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDirection(int direction) {
+<b class="nc">&nbsp;        this.direction = direction;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getDeaths() {
+<b class="nc">&nbsp;        return deaths;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDeaths(int deaths) {
+<b class="fc">&nbsp;        this.deaths = deaths;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isInGame() {
+<b class="fc">&nbsp;        return inGame;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setInGame(boolean inGame) {
+<b class="nc">&nbsp;        this.inGame = inGame;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getExplImg() {
+<b class="nc">&nbsp;        return explImg;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setExplImg(String explImg) {
+<b class="nc">&nbsp;        this.explImg = explImg;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getMessage() {
+<b class="nc">&nbsp;        return message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setMessage(String message) {
+<b class="nc">&nbsp;        this.message = message;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Timer getTimer() {
+<b class="nc">&nbsp;        return timer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setTimer(Timer timer) {
+<b class="nc">&nbsp;        this.timer = timer;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-18 19:43</div>
+</div>
+</body>
+</html>

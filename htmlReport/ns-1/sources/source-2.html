@@ -1,0 +1,307 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BoardTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">main</a>
+</div>
+
+<h1>Coverage Summary for Class: BoardTest (main)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BoardTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23,1%
+  </span>
+  <span class="absValue">
+    (3/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9,3%
+  </span>
+  <span class="absValue">
+    (7/75)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package main;
+&nbsp;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import org.junit.jupiter.params.ParameterizedTest;
+&nbsp;import org.junit.jupiter.params.provider.CsvSource;
+&nbsp;import space_invaders.sprites.Alien;
+&nbsp;import space_invaders.sprites.Shot;
+&nbsp;
+&nbsp;import java.lang.reflect.Method;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class BoardTest {</b>
+&nbsp;    Board board;
+&nbsp;    Alien alien;
+&nbsp;    Alien.Bomb bomb;
+&nbsp;    @org.junit.jupiter.api.BeforeEach
+&nbsp;    void setUp(){
+<b class="fc">&nbsp;        board = new Board();</b>
+<b class="fc">&nbsp;        alien = board.getAliens().getFirst();</b>
+<b class="fc">&nbsp;        bomb = alien.getBomb();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void test_gameInit(){
+<b class="nc">&nbsp;        assertEquals(24, board.getAliens().size());</b>
+<b class="nc">&nbsp;        var aliens = board.getAliens();</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; 4; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; 6; j++) {</b>
+<b class="nc">&nbsp;                int expectedX = Commons.ALIEN_INIT_X + 18 * j;</b>
+<b class="nc">&nbsp;                int expectedY = Commons.ALIEN_INIT_Y + 18 * j;</b>
+<b class="nc">&nbsp;                Alien alien = aliens.get(i * 6 + j);</b>
+<b class="nc">&nbsp;                assertEquals(expectedX, alien.getX(), &quot;La posición X del alien en la fila &quot; + i + &quot; y columna &quot; + j + &quot; no es correcta.&quot;);</b>
+<b class="nc">&nbsp;                assertEquals(expectedY, alien.getY(), &quot;La posición Y del alien en la fila &quot; + i + &quot; y columna &quot; + j + &quot; no es correcta.&quot;);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertNotEquals(null,board.getPlayer());</b>
+<b class="nc">&nbsp;        assertNotEquals(null, board.getShot());</b>
+<b class="nc">&nbsp;        assertTrue(board.isInGame());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @ParameterizedTest
+&nbsp;    @CsvSource(value = {
+&nbsp;            &quot;0,0,1,false,1&quot;,   // Alien en (0,0), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;1,0,1,false,1&quot;,   // Alien en (1,0), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;58,0,1,false,1&quot;,  // Alien en (58,0), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;357,0,1,false,1&quot;, // Alien en (357,0), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;358,0,1,true,-1&quot;, // Alien en (358,0), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;0,1,-1,true,1&quot;,  // Alien en (0,1), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;1,1,-1,false,-1&quot;, // Alien en (1,1), movimiento hacia la izquierda, no debe ir hacia abajo
+&nbsp;            &quot;58,1,1,false,1&quot;,  // Alien en (58,1), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;357,1,1,false,1&quot;, // Alien en (357,1), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;358,1,1,true,-1&quot;, // Alien en (358,1), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;0,58,-1,true,1&quot;, // Alien en (0,58), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;1,58,-1,false,-1&quot;, // Alien en (1,58), movimiento hacia la izquierda, no debe ir hacia abajo
+&nbsp;            &quot;58,58,-1,false,-1&quot;, // Alien en (58,58), movimiento hacia la izquierda, no debe ir hacia abajo
+&nbsp;            &quot;357,58,1,false,1&quot;,  // Alien en (357,58), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;358,58,1,true,-1&quot;, // Alien en (358,58), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;0,289,-1,true,1&quot;, // Alien en (0,289), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;1,289,-1,false,-1&quot;, // Alien en (1,289), movimiento hacia la izquierda, no debe ir hacia abajo
+&nbsp;            &quot;58,289,1,false,1&quot;,  // Alien en (58,289), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;357,289,1,false,1&quot;, // Alien en (357,289), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;358,289,1,true,-1&quot;, // Alien en (358,289), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;0,290,-1,true,1&quot;,  // Alien en (0,290), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
+&nbsp;            &quot;1,290,-1,false,-1&quot;, // Alien en (1,290), movimiento hacia la izquierda, no debe ir hacia abajo
+&nbsp;            &quot;58,290,1,false,1&quot;,  // Alien en (58,290), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;357,290,1,false,1&quot;, // Alien en (357,290), movimiento hacia la derecha, no debe ir hacia abajo
+&nbsp;            &quot;358,290,1,true,-1&quot;  // Alien en (358,290), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
+&nbsp;    })
+&nbsp;    void test_update_aliens(int x, int y, int dx, boolean should_go_down, int expected_dx){
+<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        aliens.add(new Alien(x,y));</b>
+<b class="nc">&nbsp;        board.setAliens(aliens);</b>
+<b class="nc">&nbsp;        board.setDirection(dx);</b>
+<b class="nc">&nbsp;        board.update_aliens();</b>
+<b class="nc">&nbsp;        Alien updatedAlien = board.getAliens().get(0);</b>
+&nbsp;
+<b class="nc">&nbsp;        if(dx &gt; 0 &amp;&amp; !should_go_down){</b>
+<b class="nc">&nbsp;            assertTrue(x &lt; updatedAlien.getX(), &quot;x coordinate was not expected&quot;);</b>
+<b class="nc">&nbsp;        }else if(dx &lt; 0 &amp;&amp; !should_go_down){</b>
+<b class="nc">&nbsp;            assertTrue(x &gt; updatedAlien.getX(), &quot;x coordinate was not expected&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(should_go_down){</b>
+<b class="nc">&nbsp;            assertTrue(y &lt; updatedAlien.getY(), &quot;should have go down&quot;);</b>
+&nbsp;        }else{
+<b class="nc">&nbsp;            assertEquals(y, updatedAlien.getY(),&quot;y coordinate was not expected&quot;);</b>
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        assertEquals(expected_dx,board.getDirection());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp1_update(){
+<b class="nc">&nbsp;        board.setDeaths(0);</b>
+<b class="nc">&nbsp;        board.update();</b>
+<b class="nc">&nbsp;        assertEquals(&quot;Game won!&quot;, board.getMessage());</b>
+<b class="nc">&nbsp;        assertFalse(board.isInGame());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp2_update(){
+<b class="fc">&nbsp;        board.setDeaths(10);</b>
+<b class="fc">&nbsp;        board.update();</b>
+<b class="fc">&nbsp;        assertTrue(board.isInGame());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp3_update(){
+<b class="nc">&nbsp;        board.setDeaths(Commons.CHANCE);</b>
+<b class="nc">&nbsp;        board.update();</b>
+<b class="nc">&nbsp;        assertFalse(board.isInGame());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    void cp1_update_bomb(){
+<b class="nc">&nbsp;        bomb.setY(Commons.GROUND - Commons.BOMB_HEIGHT + 1);</b>
+<b class="nc">&nbsp;        board.update_bomb();</b>
+<b class="nc">&nbsp;        assertTrue(bomb.isDestroyed(),&quot;La bomba debería haberse destruido&quot;);</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    @Test
+<b class="nc">&nbsp;    void cp3_update_bomb(){</b>
+<b class="nc">&nbsp;        bomb.setX(board.getPlayer().getX() + Commons.PLAYER_WIDTH/2);</b>
+&nbsp;        bomb.setY(board.getPlayer().getY() + Commons.PLAYER_HEIGHT/2);
+&nbsp;        bomb.setDestroyed(false);
+&nbsp;
+&nbsp;        board.update_bomb();
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;        assertTrue(bomb.isDestroyed(),&quot;La bomba debería haber sido destruida al colisionar con el jugador&quot;);</b>
+<b class="nc">&nbsp;        assertTrue(board.getPlayer().isDying(),&quot;El jugador debería estar muriendo al haber colisionado con una bomba&quot;);</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+<b class="nc">&nbsp;    @Test</b>
+<b class="nc">&nbsp;    void cp4_update_bomb(){</b>
+&nbsp;        int i = 0;
+&nbsp;        while(i&lt;100 &amp;&amp; bomb.isDestroyed()){
+&nbsp;            board.update_bomb();
+&nbsp;            i++;
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Bomb found &quot; + i);</b>
+<b class="nc">&nbsp;        assertTrue(bomb.isVisible(),&quot;Debería haberse creado después de 100 intentos&quot;);</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+&nbsp;    @Test
+&nbsp;    void cp5_update_bomb(){
+&nbsp;        bomb.setDestroyed(false);
+&nbsp;        bomb.setX(Commons.BOARD_WIDTH/2);
+<b class="nc">&nbsp;        bomb.setY(Commons.BOMB_HEIGHT/2);</b>
+<b class="nc">&nbsp;        board.update_bomb();</b>
+<b class="nc">&nbsp;        assertTrue(bomb.getX() == Commons.BOARD_WIDTH/2 &amp;&amp; bomb.getY() == Commons.BOMB_HEIGHT/2 + 1);</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+<b class="nc">&nbsp;    @Test</b>
+&nbsp;    void cp_1_update_shot(){
+<b class="nc">&nbsp;        Shot shot  = board.getShot();</b>
+<b class="nc">&nbsp;        shot.setX(alien.getX() + 9);</b>
+<b class="nc">&nbsp;        shot.setY(alien.getY() + 9);</b>
+&nbsp;        int old_death = board.getDeaths();
+&nbsp;
+&nbsp;        board.update_shots();
+&nbsp;
+<b class="nc">&nbsp;        assertFalse(shot.isVisible(),&quot;El disparo debería haberse puesto a morir&quot;);</b>
+<b class="nc">&nbsp;        assertTrue(alien.isDying(),&quot;El alien debería estar muriendo&quot;);</b>
+<b class="nc">&nbsp;        assertEquals(old_death-1,board.getDeaths(), &quot;Debería haberse restado uno del contador de aliens&quot;);</b>
+&nbsp;    }
+<b class="nc">&nbsp;</b>
+&nbsp;    @Test
+<b class="nc">&nbsp;    void cp_2_update_shot(){</b>
+&nbsp;        Shot shot  = board.getShot();
+&nbsp;        shot.setX(150);
+&nbsp;        shot.setY(0);
+&nbsp;
+&nbsp;        board.update_shots();
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;        assertFalse(shot.isVisible(),&quot;El disparo debería haberse puesto a morir&quot;);</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+&nbsp;    @Test
+&nbsp;    void cp_3_update_shot(){
+&nbsp;        Shot shot = board.getShot();
+&nbsp;        shot.setX(50);
+&nbsp;        shot.setY(50);
+&nbsp;        board.update_shots();
+&nbsp;        assertEquals(shot.getY(),46);
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-18 19:43</div>
+</div>
+</body>
+</html>

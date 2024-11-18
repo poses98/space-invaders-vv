@@ -108,6 +108,13 @@ public class BoardTest {
     }
 
     @Test
+    void cp3_update(){
+        board.setDeaths(Commons.CHANCE);
+        board.update();
+        assertFalse(board.isInGame());
+    }
+
+    @Test
     void cp1_update_bomb(){
         bomb.setY(Commons.GROUND - Commons.BOMB_HEIGHT + 1);
         board.update_bomb();

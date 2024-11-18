@@ -1,0 +1,190 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AlienTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">space_invaders.sprites</a>
+</div>
+
+<h1>Coverage Summary for Class: AlienTest (space_invaders.sprites)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AlienTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95,7%
+  </span>
+  <span class="absValue">
+    (44/46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package space_invaders.sprites;
+&nbsp;
+&nbsp;import main.Commons;
+&nbsp;import static org.junit.jupiter.api.Assertions.*;
+&nbsp;
+<b class="fc">&nbsp;public class AlienTest {</b>
+<b class="fc">&nbsp;    Alien alien = null;</b>
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_1_initAlien(){
+<b class="fc">&nbsp;        int x = 0;</b>
+<b class="fc">&nbsp;        int y = 0;</b>
+<b class="fc">&nbsp;        alien = new Alien(x,y);</b>
+<b class="fc">&nbsp;        assertEquals(0,alien.getX(),&quot;X value is not equal&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(0,alien.getY(), &quot;Y value es not equal&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_2_initAlien(){
+<b class="fc">&nbsp;        int x = -1;</b>
+<b class="fc">&nbsp;        int y = 8000;</b>
+<b class="fc">&nbsp;        alien = new Alien(x,y);</b>
+<b class="fc">&nbsp;        assertEquals(0, alien.getX(),&quot;X value is not equal&quot;);</b>
+<b class="nc">&nbsp;        assertEquals(350, alien.getY(),&quot;Y value es not equal&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_3_initAlien(){
+<b class="fc">&nbsp;        int x = 8000;</b>
+<b class="fc">&nbsp;        int y = -1;</b>
+<b class="fc">&nbsp;        alien = new Alien(x,y);</b>
+<b class="fc">&nbsp;        assertEquals(358, alien.getX(),&quot;X value is not equal&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(0, alien.getY(),&quot;Y value es not equal&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_4_initAlien(){
+<b class="fc">&nbsp;        int x = 8000;</b>
+<b class="fc">&nbsp;        int y = 8000;</b>
+<b class="fc">&nbsp;        alien = new Alien(x,y);</b>
+<b class="fc">&nbsp;        assertEquals(358,alien.getX(), &quot;X value is not equal&quot;);</b>
+<b class="nc">&nbsp;        assertEquals(350,alien.getY(), &quot;Y value es not equal&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_1_act(){
+<b class="fc">&nbsp;        int direction = 1;</b>
+<b class="fc">&nbsp;        int initial_x = 0;</b>
+<b class="fc">&nbsp;        int expected_x = 12;</b>
+<b class="fc">&nbsp;        alien = new Alien(initial_x,Commons.BOARD_HEIGHT/2);</b>
+<b class="fc">&nbsp;        alien.act(direction);</b>
+<b class="fc">&nbsp;        assertEquals(expected_x,alien.getX());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_2_act(){
+<b class="fc">&nbsp;        int direction = -1;</b>
+<b class="fc">&nbsp;        int initial_x = 12;</b>
+<b class="fc">&nbsp;        int expected_x = 0;</b>
+<b class="fc">&nbsp;        alien = new Alien(initial_x,Commons.BOARD_HEIGHT/2);</b>
+<b class="fc">&nbsp;        alien.act(direction);</b>
+<b class="fc">&nbsp;        assertEquals(expected_x,alien.getX());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_3_act(){
+<b class="fc">&nbsp;        int direction = 1;</b>
+<b class="fc">&nbsp;        int initial_x = 346;</b>
+<b class="fc">&nbsp;        int expected_x = 346;</b>
+<b class="fc">&nbsp;        alien = new Alien(initial_x,Commons.BOARD_HEIGHT/2);</b>
+<b class="fc">&nbsp;        alien.act(direction);</b>
+<b class="fc">&nbsp;        assertEquals(expected_x,alien.getX());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @org.junit.jupiter.api.Test
+&nbsp;    void cp_4_act(){
+<b class="fc">&nbsp;        int direction = -1;</b>
+<b class="fc">&nbsp;        int initial_x = 0;</b>
+<b class="fc">&nbsp;        int expected_x = 0;</b>
+<b class="fc">&nbsp;        alien = new Alien(initial_x,Commons.BOARD_HEIGHT/2);</b>
+<b class="fc">&nbsp;        alien.act(direction);</b>
+<b class="fc">&nbsp;        assertEquals(expected_x,alien.getX());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-18 19:43</div>
+</div>
+</body>
+</html>

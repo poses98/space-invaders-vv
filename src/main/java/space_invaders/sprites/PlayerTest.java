@@ -1,6 +1,8 @@
 package space_invaders.sprites;
 
 import main.Commons;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.*;
@@ -133,6 +135,29 @@ public class PlayerTest {
         player.keyPressed(keyEvent);
         player.act();
         assertEquals(179,player.getX());
+    }
+
+    @Test
+    void cp_6_act(){
+        player.dx = 0;
+        player.x = 1;
+        player.act();
+        assertEquals(1,player.x);
+    }
+
+    @Test
+    void cp_7_act(){
+        player.dx = 2;
+        player.x = 100;
+        player.act();
+        assertEquals(2,player.x);
+    }
+    @Test
+    void cp_8_act(){
+        player.dx = 0;
+        player.x = 0;
+        player.act();
+        assertEquals(0,player.x);
     }
 
     /**

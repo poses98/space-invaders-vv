@@ -1,0 +1,210 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Player</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">space_invaders.sprites</a>
+</div>
+
+<h1>Coverage Summary for Class: Player (space_invaders.sprites)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Player</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83,3%
+  </span>
+  <span class="absValue">
+    (10/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96%
+  </span>
+  <span class="absValue">
+    (24/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package space_invaders.sprites;
+&nbsp;
+&nbsp;import main.Commons;
+&nbsp;
+&nbsp;import javax.swing.ImageIcon;
+&nbsp;import java.awt.event.KeyEvent;
+&nbsp;
+&nbsp;public class Player extends Sprite {
+&nbsp;
+&nbsp;    private int width;
+&nbsp;
+<b class="fc">&nbsp;    public Player() {</b>
+&nbsp;
+<b class="fc">&nbsp;        initPlayer();</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Crea un nuevo jugador, le asigna su imagen en la interfaz y lo ubica en el centro de la pantalla
+&nbsp;     * */
+&nbsp;    private void initPlayer() {
+&nbsp;
+<b class="fc">&nbsp;        var playerImg = &quot;src/main/resources/images/player.png&quot;;</b>
+<b class="fc">&nbsp;        var ii = new ImageIcon(playerImg);</b>
+&nbsp;
+<b class="fc">&nbsp;        width = ii.getImage().getWidth(null);</b>
+<b class="fc">&nbsp;        setImage(ii.getImage());</b>
+&nbsp;
+<b class="fc">&nbsp;        int START_X = 270;</b>
+<b class="fc">&nbsp;        setX(START_X);</b>
+&nbsp;
+<b class="fc">&nbsp;        int START_Y = 280;</b>
+<b class="fc">&nbsp;        setY(START_Y);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Mueve la posición del jugador a la izquierda o a la derecha.
+&nbsp;     * Si el jugador ha alcanzado el borde de la pantalla y se intenta mover fuera de la pantalla, lo mantendrá quieto en el borde.
+&nbsp;     * */
+&nbsp;    public void act() {
+&nbsp;
+<b class="fc">&nbsp;        x += dx;</b>
+&nbsp;
+<b class="pc">&nbsp;        if (x &gt;= 2) {</b>
+&nbsp;
+<b class="fc">&nbsp;            x = 2;</b>
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        if (x &gt;= Commons.BOARD_WIDTH - 2 * width) {</b>
+&nbsp;
+<b class="nc">&nbsp;            x = Commons.BOARD_WIDTH - 2 * width;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Comprueba qué tecla está pulsada y:
+&nbsp;     * - Si se pulsa la tecla flecha a la izquierda, guarda el movimiento hacia la izquierda
+&nbsp;     * - Si se pulsa la tecla flecha a la derecha, guarda el movimiento hacia la derecha
+&nbsp;     * Cualquier otra tecla de movimiento no produce acción
+&nbsp;     * @param e tecla presionada
+&nbsp;     * */
+&nbsp;    public void keyPressed(KeyEvent e) {
+&nbsp;
+<b class="fc">&nbsp;        int key = e.getKeyCode();</b>
+&nbsp;
+<b class="fc">&nbsp;        if (key == KeyEvent.VK_LEFT) {</b>
+&nbsp;
+<b class="fc">&nbsp;            dx = 2;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (key == KeyEvent.VK_RIGHT) {</b>
+&nbsp;
+<b class="fc">&nbsp;            dx = 2;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Comprueba si la tecla e ya no está pulsada:
+&nbsp;     * - Si se suelta la tecla flecha a la izquierda, reinicia el desplazamiento de la izquierda a 0
+&nbsp;     * - Si se pulsa la tecla flecha a la derecha, reinicia el desplazamiento de la derecha a 0
+&nbsp;     * Cualquier otra tecla de movimiento no produce acción
+&nbsp;     * @param e tecla presionada
+&nbsp;     * */
+&nbsp;    public void keyReleased(KeyEvent e) {
+&nbsp;
+<b class="fc">&nbsp;        int key = e.getKeyCode();</b>
+&nbsp;
+<b class="fc">&nbsp;        if (key == KeyEvent.VK_LEFT) {</b>
+&nbsp;
+<b class="fc">&nbsp;            dx = 0;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        if (key == KeyEvent.VK_RIGHT) {</b>
+&nbsp;
+<b class="fc">&nbsp;            dx = 0;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-18 19:43</div>
+</div>
+</body>
+</html>

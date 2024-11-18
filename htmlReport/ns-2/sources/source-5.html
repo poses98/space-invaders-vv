@@ -1,0 +1,142 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Shot</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">space_invaders.sprites</a>
+</div>
+
+<h1>Coverage Summary for Class: Shot (space_invaders.sprites)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Shot</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package space_invaders.sprites;
+&nbsp;
+&nbsp;import javax.swing.ImageIcon;
+&nbsp;
+&nbsp;public class Shot extends Sprite {
+&nbsp;
+<b class="nc">&nbsp;    public Shot() {</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Inicializa un nuevo objeto disparo en las coordenadas indicadas
+&nbsp;     * @param x coordenada X de la posición del nuevo disparo
+&nbsp;     * @param y coordenada Y de la posición del nuevo disparo
+&nbsp;     * */
+<b class="fc">&nbsp;    public Shot(int x, int y) {</b>
+&nbsp;
+<b class="fc">&nbsp;        initShot(x, y);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Inicializa un nuevo objeto disparo en las coordenadas indicadas y le asigna la imagen correspondiente en la interfaz
+&nbsp;     * @param x coordenada X de la posición del nuevo disparo
+&nbsp;     * @param y coordenada Y de la posición del nuevo disparo
+&nbsp;     * Si alguna de las coordenadas indicadas es mayor al máximo permitido, se le asignará el valor máximo permitido.
+&nbsp;     * Si se introducen valores negativos de coordenada, se asignará el mínimo permitido (0).
+&nbsp;     * */
+&nbsp;    private void initShot(int x, int y) {
+&nbsp;
+<b class="fc">&nbsp;        var shotImg = &quot;src/main/resources/images/shot.png&quot;;</b>
+<b class="fc">&nbsp;        var ii = new ImageIcon(shotImg);</b>
+<b class="fc">&nbsp;        setImage(ii.getImage());</b>
+&nbsp;
+<b class="fc">&nbsp;        int H_SPACE = 6;</b>
+<b class="fc">&nbsp;        setX(x + H_SPACE);</b>
+&nbsp;
+<b class="fc">&nbsp;        int V_SPACE = 1;</b>
+<b class="fc">&nbsp;        setY(y - V_SPACE);</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-11-18 19:43</div>
+</div>
+</body>
+</html>
