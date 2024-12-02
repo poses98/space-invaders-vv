@@ -88,8 +88,9 @@ public class Board extends JPanel {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
 
-                var alien = new Alien(Commons.ALIEN_INIT_Y + 18 * j,
+                var alien = new Alien(Commons.ALIEN_INIT_X + 18 * j,
                         Commons.ALIEN_INIT_Y + 18 * i);
+                System.out.println(alien.getX() + "x - " + alien.getY() + 'y');
                 this.aliens.add(alien);
             }
         }
@@ -240,7 +241,11 @@ public class Board extends JPanel {
      * Si no se han destruido, actualiza el estado del juego.
      */
     void update() {
-
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if (deaths == Commons.CHANCE) {
             inGame = false;
             timer.stop();
@@ -308,21 +313,20 @@ public class Board extends JPanel {
         for (Alien alien : this.aliens) {
 
             int x = alien.getX();
+            // Salto para abajo
+            if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT && direction != -1) {
 
-            if (x <= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT && direction != -1) {
-
-                direction = 0;
+                direction *= -1;
 
                 Iterator<Alien> i1 = this.aliens.iterator();
 
                 while (i1.hasNext()) {
-
                     Alien a2 = i1.next();
                     a2.setY(a2.getY() + Commons.GO_DOWN);
                 }
             }
 
-            if (x <= Commons.BORDER_LEFT && direction != 1) {
+            if (x <= Commons.BORDER_LEFT + Commons.ALIEN_WIDTH && direction != 1) {
 
                 direction = 1;
 
@@ -331,7 +335,7 @@ public class Board extends JPanel {
                 while (i2.hasNext()) {
 
                     Alien a = i2.next();
-                    a.setX(a.getY() + Commons.GO_DOWN);
+                    a.setY(a.getY() + Commons.GO_DOWN);
                 }
             }
         }
@@ -343,14 +347,11 @@ public class Board extends JPanel {
             Alien alien = it.next();
 
             if (alien.isVisible()) {
-
                 int y = alien.getY();
-
                 if (y > Commons.GROUND - Commons.ALIEN_HEIGHT) {
                     inGame = false;
                     message = "Invasion!";
                 }
-
                 alien.act(direction);
             }
         }

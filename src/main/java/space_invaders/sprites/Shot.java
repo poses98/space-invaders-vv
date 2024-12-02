@@ -1,5 +1,7 @@
 package space_invaders.sprites;
 
+import main.Commons;
+
 import javax.swing.ImageIcon;
 
 public class Shot extends Sprite {
@@ -29,10 +31,9 @@ public class Shot extends Sprite {
         setImage(ii.getImage());
 
         int H_SPACE = 6;
-        setX(x + H_SPACE);
-
         int V_SPACE = 1;
-        setY(y - V_SPACE);
+        setX(Math.max(0, Math.min(Commons.BOARD_WIDTH, x + H_SPACE)));
+        setY(Math.max(0, Math.min(Commons.BOARD_HEIGHT, y - V_SPACE)));
     }
 }
 

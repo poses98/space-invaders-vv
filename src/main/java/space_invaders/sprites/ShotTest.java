@@ -36,8 +36,8 @@ public class ShotTest {
     void cp_3_initShot() {
         int x = 400;
         int y = 400;
-        int expected_x = 356; // Max BOARD_WIDTH
-        int expected_y = 350; // Max BOARD_HEIGHT
+        int expected_x = Commons.BOARD_WIDTH; // Max BOARD_WIDTH
+        int expected_y = Commons.BOARD_HEIGHT; // Max BOARD_HEIGHT
         Shot shot = new Shot(x, y);
         assertEquals(expected_x, shot.getX());
         assertEquals(expected_y, shot.getY());
@@ -47,7 +47,7 @@ public class ShotTest {
     void cp_4_initShot() {
         int x = 355;
         int y = 200;
-        int expected_x = 356; // Max BOARD_WIDTH after H_SPACE
+        int expected_x = Commons.BOARD_WIDTH;
         int expected_y = 199;
         Shot shot = new Shot(x, y);
         assertEquals(expected_x, shot.getX());
@@ -91,7 +91,7 @@ public class ShotTest {
     void cp_8_initShot() {
         int x = 356;
         int y = 350;
-        int expected_x = 356; // Max BOARD_WIDTH
+        int expected_x = Commons.BOARD_WIDTH; // Max BOARD_WIDTH
         int expected_y = 349; // 350 - V_SPACE
         Shot shot = new Shot(x, y);
         assertEquals(expected_x, shot.getX());
@@ -102,8 +102,8 @@ public class ShotTest {
     void cp_9_initShot() {
         int x = 357;
         int y = 351;
-        int expected_x = 356; // Max BOARD_WIDTH
-        int expected_y = 350; // Max BOARD_HEIGHT
+        int expected_x = Commons.BOARD_WIDTH; // Max BOARD_WIDTH
+        int expected_y = Commons.BOARD_HEIGHT; // Max BOARD_HEIGHT
         Shot shot = new Shot(x, y);
         assertEquals(expected_x, shot.getX());
         assertEquals(expected_y, shot.getY());

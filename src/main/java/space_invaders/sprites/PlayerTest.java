@@ -96,7 +96,7 @@ public class PlayerTest {
         player.setX(0);
         player.keyPressed(keyEvent);
         player.act();
-       assertEquals(0,player.getX());
+       assertEquals(2,player.getX());
     }
 
     /**
@@ -115,7 +115,7 @@ public class PlayerTest {
         player.setX(Commons.BOARD_WIDTH-Commons.PLAYER_WIDTH);
         player.keyPressed(keyEvent);
         player.act();
-        assertEquals(Commons.BOARD_WIDTH-Commons.PLAYER_WIDTH,player.getX());
+        assertEquals(Commons.BOARD_WIDTH-Commons.PLAYER_WIDTH*2,player.getX());
     }
 
     /**
@@ -142,7 +142,7 @@ public class PlayerTest {
         player.dx = 0;
         player.x = 1;
         player.act();
-        assertEquals(1,player.x);
+        assertEquals(2,player.x);
     }
 
     @Test
@@ -150,14 +150,14 @@ public class PlayerTest {
         player.dx = 2;
         player.x = 100;
         player.act();
-        assertEquals(2,player.x);
+        assertEquals(102,player.x);
     }
     @Test
     void cp_8_act(){
         player.dx = 0;
         player.x = 0;
         player.act();
-        assertEquals(0,player.x);
+        assertEquals(2,player.x);
     }
 
     /**
@@ -170,7 +170,7 @@ public class PlayerTest {
                 KeyEvent.KEY_PRESSED,
                 System.currentTimeMillis(),
                 0, // Modificadores (sin shift, alt, etc.)
-                KeyEvent.VK_RIGHT,
+                KeyEvent.VK_LEFT,
                 KeyEvent.CHAR_UNDEFINED
         );
         player.keyPressed(keyEvent);

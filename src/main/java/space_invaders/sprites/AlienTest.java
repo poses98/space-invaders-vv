@@ -69,8 +69,8 @@ public class AlienTest {
     @org.junit.jupiter.api.Test
     void cp_3_act(){
         int direction = 1;
-        int initial_x = 346;
-        int expected_x = 346;
+        int initial_x = Commons.BOARD_WIDTH;
+        int expected_x = Commons.BOARD_WIDTH;
         alien = new Alien(initial_x,Commons.BOARD_HEIGHT/2);
         alien.act(direction);
         assertEquals(expected_x,alien.getX());

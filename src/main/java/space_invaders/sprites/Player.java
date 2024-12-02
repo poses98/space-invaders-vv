@@ -24,7 +24,7 @@ public class Player extends Sprite {
         width = ii.getImage().getWidth(null);
         setImage(ii.getImage());
 
-        int START_X = 270;
+        int START_X = Commons.BOARD_WIDTH/2;
         setX(START_X);
 
         int START_Y = 280;
@@ -39,7 +39,7 @@ public class Player extends Sprite {
 
         x += dx;
 
-        if (x >= 2) {
+        if (x <= 2) {
 
             x = 2;
         }
@@ -62,7 +62,7 @@ public class Player extends Sprite {
 
         if (key == KeyEvent.VK_LEFT) {
 
-            dx = 2;
+            dx = -2;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
@@ -70,6 +70,7 @@ public class Player extends Sprite {
             dx = 2;
         }
     }
+
     /**
      * Comprueba si la tecla e ya no está pulsada:
      * - Si se suelta la tecla flecha a la izquierda, reinicia el desplazamiento de la izquierda a 0
