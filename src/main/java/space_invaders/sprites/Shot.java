@@ -32,6 +32,7 @@ public class Shot extends Sprite {
 
         int H_SPACE = 6;
         int V_SPACE = 1;
+        // Cambiado la atribución de X e Y para comprobar límites y que sea siempre un valor válido
         setX(Math.max(0, Math.min(Commons.BOARD_WIDTH, x + H_SPACE)));
         setY(Math.max(0, Math.min(Commons.BOARD_HEIGHT, y - V_SPACE)));
     }

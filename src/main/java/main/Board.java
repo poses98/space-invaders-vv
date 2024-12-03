@@ -87,10 +87,9 @@ public class Board extends JPanel {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
-
+                // Cambio ALIEN_INIT_Y por ALIEN_INIT_Y
                 var alien = new Alien(Commons.ALIEN_INIT_X + 18 * j,
                         Commons.ALIEN_INIT_Y + 18 * i);
-                System.out.println(alien.getX() + "x - " + alien.getY() + 'y');
                 this.aliens.add(alien);
             }
         }
@@ -313,9 +312,9 @@ public class Board extends JPanel {
         for (Alien alien : this.aliens) {
 
             int x = alien.getX();
-            // Salto para abajo
+            // Cambio x <= Commons... -> x >= Commons...
             if (x >= Commons.BOARD_WIDTH - Commons.BORDER_RIGHT && direction != -1) {
-
+                // Cambio direction = 0 -> direction *= -1
                 direction *= -1;
 
                 Iterator<Alien> i1 = this.aliens.iterator();
@@ -325,7 +324,7 @@ public class Board extends JPanel {
                     a2.setY(a2.getY() + Commons.GO_DOWN);
                 }
             }
-
+            // Cambio añadida la anchura del alien al borde de la pantalla
             if (x <= Commons.BORDER_LEFT + Commons.ALIEN_WIDTH && direction != 1) {
 
                 direction = 1;
@@ -335,6 +334,7 @@ public class Board extends JPanel {
                 while (i2.hasNext()) {
 
                     Alien a = i2.next();
+                    // Cambio a.setX por a.setY
                     a.setY(a.getY() + Commons.GO_DOWN);
                 }
             }

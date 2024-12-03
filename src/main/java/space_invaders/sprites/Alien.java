@@ -26,19 +26,19 @@ public class Alien extends Sprite {
      * Si se introduce alguna coordenada negativa, se reemplazará por 0.
      * */
     private void initAlien(int x, int y) {
-        // Seteamos X e Y
+        // Cambio atribuimos priemro valor a las variables
         this.x = x;
         this.y = y;
-        // Comprobaciones límites en X
+        // Cambio separado comprobaciones límites en X
         if (x> Commons.BOARD_WIDTH){
             this.x = Commons.BOARD_WIDTH;
-        }else if (x<0){
+        }else if (x<0){ // Añadido este else
             this.x = 0;
         }
-        // Comprobaciones en Y
+        // Cambio comprobaciones límites en Y
         if (y> Commons.BOARD_HEIGHT){
             this.y = Commons.BOARD_HEIGHT;
-        } else if (y<0){
+        } else if (y<0){ // Añadido este else
             this.y=0;
         }
 
@@ -55,9 +55,9 @@ public class Alien extends Sprite {
      * @param direction posición hacia la izquierda o derecha hacia la que se mueve el alien
      * */
     public void act(int direction) {
-        // Modificado
+        // Cambio se suma la la anchura del alien en positivo o negativo dependiendo de la direccion
         this.x += direction * Commons.ALIEN_WIDTH;
-        // Comprobación límites
+        // Añadidos comprobación límites
         if (x> Commons.BOARD_WIDTH){
             this.x = Commons.BOARD_WIDTH;
         }else if (x<0){

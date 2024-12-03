@@ -24,7 +24,7 @@ public class Player extends Sprite {
         width = ii.getImage().getWidth(null);
         setImage(ii.getImage());
 
-        int START_X = Commons.BOARD_WIDTH/2;
+        int START_X = Commons.BOARD_WIDTH/2; // Cambiada esta linea por la mitad de la anchura del tablero
         setX(START_X);
 
         int START_Y = 280;
@@ -39,7 +39,7 @@ public class Player extends Sprite {
 
         x += dx;
 
-        if (x <= 2) {
+        if (x <= 2) { // Cambiado x >= 2 por x <= 2
 
             x = 2;
         }
@@ -62,7 +62,7 @@ public class Player extends Sprite {
 
         if (key == KeyEvent.VK_LEFT) {
 
-            dx = -2;
+            dx = -2; // Cambiado el dx = 2 por dx = -2
         }
 
         if (key == KeyEvent.VK_RIGHT) {
