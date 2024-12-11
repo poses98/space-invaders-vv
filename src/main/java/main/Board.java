@@ -87,7 +87,8 @@ public class Board extends JPanel {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
-                // Cambio ALIEN_INIT_Y por ALIEN_INIT_Y
+                // Cambio ALIEN_INIT_X en el segundo atributo del constructor por ALIEN_INIT_Y
+                // Además se multiplica por i en lugar de j ya que es la fila a la que corresponde
                 var alien = new Alien(Commons.ALIEN_INIT_X + 18 * j,
                         Commons.ALIEN_INIT_Y + 18 * i);
                 this.aliens.add(alien);
@@ -245,7 +246,8 @@ public class Board extends JPanel {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        if (deaths == Commons.CHANCE) {
+        // Se ha cambiado el Commons.CHANCE por Commons.NUMBER_OF_ALIENS_TO_DESTROY
+        if (deaths == Commons.NUMBER_OF_ALIENS_TO_DESTROY) {
             inGame = false;
             timer.stop();
             message = "Game won!";

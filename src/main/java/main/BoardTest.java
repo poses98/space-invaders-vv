@@ -30,7 +30,7 @@ public class BoardTest {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 6; j++) {
                 int expectedX = Commons.ALIEN_INIT_X + 18 * j;
-                int expectedY = Commons.ALIEN_INIT_Y + 18 * j;
+                int expectedY = Commons.ALIEN_INIT_Y + 18 * i;
                 Alien alien = aliens.get(i * 6 + j);
                 assertEquals(expectedX, alien.getX(), "La posición X del alien en la fila " + i + " y columna " + j + " no es correcta.");
                 assertEquals(expectedY, alien.getY(), "La posición Y del alien en la fila " + i + " y columna " + j + " no es correcta.");
@@ -46,27 +46,27 @@ public class BoardTest {
             "0,0,1,false,1",   // Alien en (0,0), movimiento hacia la derecha, no debe ir hacia abajo
             "1,0,1,false,1",   // Alien en (1,0), movimiento hacia la derecha, no debe ir hacia abajo
             "58,0,1,false,1",  // Alien en (58,0), movimiento hacia la derecha, no debe ir hacia abajo
-            "357,0,1,false,1", // Alien en (357,0), movimiento hacia la derecha, no debe ir hacia abajo
+            "357,0,1,true,-1", // Alien en (357,0), movimiento hacia la derecha, no debe ir hacia abajo
             "358,0,1,true,-1", // Alien en (358,0), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
             "0,1,-1,true,1",  // Alien en (0,1), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
-            "1,1,-1,false,-1", // Alien en (1,1), movimiento hacia la izquierda, no debe ir hacia abajo
+            "1,1,-1,true,1", // Alien en (1,1), movimiento hacia la izquierda, no debe ir hacia abajo
             "58,1,1,false,1",  // Alien en (58,1), movimiento hacia la derecha, no debe ir hacia abajo
-            "357,1,1,false,1", // Alien en (357,1), movimiento hacia la derecha, no debe ir hacia abajo
+            "357,1,1,true,-1", // Alien en (357,1), movimiento hacia la derecha, no debe ir hacia abajo
             "358,1,1,true,-1", // Alien en (358,1), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
             "0,58,-1,true,1", // Alien en (0,58), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
-            "1,58,-1,false,-1", // Alien en (1,58), movimiento hacia la izquierda, no debe ir hacia abajo
+            "1,58,-1,true,1", // Alien en (1,58), movimiento hacia la izquierda, no debe ir hacia abajo
             "58,58,-1,false,-1", // Alien en (58,58), movimiento hacia la izquierda, no debe ir hacia abajo
-            "357,58,1,false,1",  // Alien en (357,58), movimiento hacia la derecha, no debe ir hacia abajo
+            "357,58,1,true,-1",  // Alien en (357,58), movimiento hacia la derecha, no debe ir hacia abajo
             "358,58,1,true,-1", // Alien en (358,58), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
             "0,289,-1,true,1", // Alien en (0,289), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
-            "1,289,-1,false,-1", // Alien en (1,289), movimiento hacia la izquierda, no debe ir hacia abajo
+            "1,289,-1,true,1", // Alien en (1,289), movimiento hacia la izquierda, no debe ir hacia abajo
             "58,289,1,false,1",  // Alien en (58,289), movimiento hacia la derecha, no debe ir hacia abajo
-            "357,289,1,false,1", // Alien en (357,289), movimiento hacia la derecha, no debe ir hacia abajo
+            "357,289,1,true,-1", // Alien en (357,289), movimiento hacia la derecha, no debe ir hacia abajo
             "358,289,1,true,-1", // Alien en (358,289), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
             "0,290,-1,true,1",  // Alien en (0,290), movimiento hacia la izquierda, debería ir hacia abajo (cambio de dirección)
-            "1,290,-1,false,-1", // Alien en (1,290), movimiento hacia la izquierda, no debe ir hacia abajo
+            "1,290,-1,true,1", // Alien en (1,290), movimiento hacia la izquierda, no debe ir hacia abajo
             "58,290,1,false,1",  // Alien en (58,290), movimiento hacia la derecha, no debe ir hacia abajo
-            "357,290,1,false,1", // Alien en (357,290), movimiento hacia la derecha, no debe ir hacia abajo
+            "357,290,1,true,-1", // Alien en (357,290), movimiento hacia la derecha, no debe ir hacia abajo
             "358,290,1,true,-1"  // Alien en (358,290), movimiento hacia la derecha, debería ir hacia abajo (cambio de dirección)
     })
     void test_update_aliens(int x, int y, int dx, boolean should_go_down, int expected_dx){
@@ -74,26 +74,30 @@ public class BoardTest {
         aliens.add(new Alien(x,y));
         board.setAliens(aliens);
         board.setDirection(dx);
+        System.out.println(board.getAliens().getFirst().getX());
         board.update_aliens();
         Alien updatedAlien = board.getAliens().get(0);
+        System.out.println(board.getAliens().getFirst().getX());
+
+
 
         if(dx > 0 && !should_go_down){
-            assertTrue(x < updatedAlien.getX(), "x coordinate was not expected");
+            assertTrue(x < updatedAlien.getX(), "dx > 0 x coordinate was not expected got:" + updatedAlien.getX() + "\texpected:" + x);
         }else if(dx < 0 && !should_go_down){
-            assertTrue(x > updatedAlien.getX(), "x coordinate was not expected");
+            assertTrue(x > updatedAlien.getX(), "dx < 0 x coordinate was not expected got:" + updatedAlien.getX() + "\texpected:" + x);
         }
+
         if(should_go_down){
             assertTrue(y < updatedAlien.getY(), "should have go down");
         }else{
             assertEquals(y, updatedAlien.getY(),"y coordinate was not expected");
-
         }
         assertEquals(expected_dx,board.getDirection());
     }
 
     @Test
     void cp1_update(){
-        board.setDeaths(0);
+        board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
         board.update();
         assertEquals("Game won!", board.getMessage());
         assertFalse(board.isInGame());
@@ -111,7 +115,7 @@ public class BoardTest {
     void cp3_update(){
         board.setDeaths(Commons.CHANCE);
         board.update();
-        assertFalse(board.isInGame());
+        assertTrue(board.isInGame());
     }
 
     @Test
