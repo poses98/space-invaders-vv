@@ -1,5 +1,5 @@
 package main;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -9,6 +9,7 @@ import space_invaders.sprites.Shot;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +17,9 @@ public class BoardTest {
     Board board;
     Alien alien;
     Alien.Bomb bomb;
-    @org.junit.jupiter.api.BeforeEach
+    private static final Logger logger = Logger.getLogger(BoardTest.class.getName());
+    public
+    @BeforeEach
     void setUp(){
         board = new Board();
         alien = board.getAliens().getFirst();
@@ -102,13 +105,30 @@ public class BoardTest {
         assertEquals("Game won!", board.getMessage());
         assertFalse(board.isInGame());
     }
-
-    void cp4_update(){
+    @Test
+    void testWinGame(){
+        logger.info("Iniciando prueba para ganar la partida...");
         board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
         board.update();
-        assertEquals("Game won!", board.getMessage());
-        assertFalse(board.isInGame());
+
+        assertFalse(board.isInGame(), "El juego debería haber finalizado.");
+        assertEquals("Game won!", board.getMessage(), "El mensaje de victoria no es el esperado.");
+        logger.info("La prueba de ganar la partida ha finalizado correctamente.");
+
     }
+
+    @Test
+    void testLoseGame() {
+        logger.info("Iniciando prueba para perder la partida...");
+        for (Alien alien : board.getAliens()) {
+            alien.setY(Commons.GROUND + 1); // Simula que los aliens han llegado al suelo
+        }
+        board.update_aliens();
+        assertFalse(board.isInGame(), "El juego debería haber finalizado.");
+        assertEquals("Invasion!", board.getMessage(), "El mensaje de derrota no es el esperado.");
+        logger.info("La prueba de perder la partida ha finalizado correctamente.");
+    }
+
 
 
     @Test
