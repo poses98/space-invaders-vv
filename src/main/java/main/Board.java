@@ -113,10 +113,9 @@ public class Board extends JPanel {
 
                 g.drawImage(alien.getImage(), alien.getX(), alien.getY(), this);
             }
-
+            // Se ha cambiado el método por alien.die()
             if (alien.isDying()) {
-
-                alien.setDying(false);
+                alien.die();
             }
         }
     }
@@ -241,11 +240,7 @@ public class Board extends JPanel {
      * Si no se han destruido, actualiza el estado del juego.
      */
     void update() {
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         // Se ha cambiado el Commons.CHANCE por Commons.NUMBER_OF_ALIENS_TO_DESTROY
         if (deaths == Commons.NUMBER_OF_ALIENS_TO_DESTROY) {
             inGame = false;
@@ -285,7 +280,8 @@ public class Board extends JPanel {
                         var ii = new ImageIcon(explImg);
                         alien.setImage(ii.getImage());
                         alien.setDying(true);
-                        deaths--;
+                        // Changed deaths-- to deaths++
+                        deaths++;
                         this.shot.die();
                     }
                 }
@@ -406,7 +402,7 @@ public class Board extends JPanel {
 
                 if (bomb.getY() >= Commons.GROUND - Commons.BOMB_HEIGHT) {
 
-                    bomb.setDestroyed(false);
+                    bomb.setDestroyed(true);
                 }
             }
         }

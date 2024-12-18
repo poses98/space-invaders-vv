@@ -56,7 +56,7 @@ public class Alien extends Sprite {
      * */
     public void act(int direction) {
         // Cambio se suma la la anchura del alien en positivo o negativo dependiendo de la direccion
-        this.x += direction * Commons.ALIEN_WIDTH;
+        this.x += direction;
         // Añadidos comprobación límites
         if (x> Commons.BOARD_WIDTH){
             this.x = Commons.BOARD_WIDTH;
@@ -127,7 +127,6 @@ public class Alien extends Sprite {
          * @return destroyed
          * */
         public boolean isDestroyed() {
-
             return destroyed;
         }
     }

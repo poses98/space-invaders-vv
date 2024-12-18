@@ -20,7 +20,6 @@ public class Sprite {
      * Cambia la visibilidad del elemento a falso
      * */
     public void die() {
-
         visible = false;
     }
     /**

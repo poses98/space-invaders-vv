@@ -103,6 +103,13 @@ public class BoardTest {
         assertFalse(board.isInGame());
     }
 
+    void cp4_update(){
+        board.setDeaths(Commons.NUMBER_OF_ALIENS_TO_DESTROY);
+        board.update();
+        assertEquals("Game won!", board.getMessage());
+        assertFalse(board.isInGame());
+    }
+
 
     @Test
     void cp2_update(){
